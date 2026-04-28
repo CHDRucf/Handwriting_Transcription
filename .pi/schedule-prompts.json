@@ -1,0 +1,16 @@
+{
+  "jobs": [
+    {
+      "id": "eyUZmmXkbk",
+      "name": "watch-llm-historical-htr",
+      "schedule": "0 0 9 * * 1",
+      "prompt": "You are running a scheduled research watch. Your task:\n\n1. Search for NEW papers and articles (published in the last 7-10 days) on using LLMs, VLMs, or multimodal models for historical handwritten document transcription, OCR, or HTR (handwritten text recognition).\n\nSearch strategy:\n- Use `alpha_search` with queries like: \"LLM historical handwriting transcription\", \"multimodal OCR historical documents\", \"vision language model handwritten text recognition\"\n- Use `web_search` with recencyFilter \"week\" for: \"LLM OCR historical handwriting transcription new paper 2026\", \"multimodal model HTR historical manuscripts\"\n\n2. Read the existing watch baseline at `outputs/watch-llm-historical-htr.md` to check which papers are already catalogued.\n\n3. For any NEW papers not in the baseline:\n   - Check if they are peer-reviewed (published in a journal) or from a reputable research group/institution\n   - Get the paper abstract and key findings using `alpha_get_paper` or by fetching the URL\n   - Only include papers that are: (a) peer-reviewed in reputable journals, OR (b) preprints from established university groups or major labs, OR (c) highly reputable technical reports\n\n4. If new relevant papers are found, append them to the Update Log section of `outputs/watch-llm-historical-htr.md` with today's date, paper details, and a one-line summary.\n\n5. If nothing new is found, append a brief \"No new papers found\" entry to the Update Log.\n\nFocus on quality over quantity. The user cares about:\n- LLM/VLM-based transcription of HISTORICAL (not modern) handwritten documents\n- Prompt engineering for historical transcription\n- Benchmarks comparing LLM vs traditional HTR\n- Post-correction of OCR/HTR using LLMs\n- Fine-tuning VLMs for historical text\n- Methodological frameworks for LLM-based paleographic work\n\nWorking directory: /home/brook-miller/Documents/Code Projects/Handwriting_Transcription",
+      "enabled": true,
+      "type": "cron",
+      "createdAt": "2026-04-21T17:20:30.215Z",
+      "runCount": 0,
+      "description": "Weekly scan for new papers on LLMs/VLMs for historical handwriting transcription and OCR"
+    }
+  ],
+  "version": 1
+}

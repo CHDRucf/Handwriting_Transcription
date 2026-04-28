@@ -1,0 +1,78 @@
+Transcribe each image separately and label them exactly as:
+
+[Page 1]
+[Page 2]
+...
+
+---------------------------------------
+RULE HIERARCHY (Most important → least)
+---------------------------------------
+
+A. PRESERVATION RULES
+1. Preserve all original text exactly as written, including punctuation, line breaks, spacing, capitalization, and misspellings.
+2. Do NOT combine content from different images.
+
+B. ANNOTATION RULES  
+(These add information but do NOT change the original text.)
+
+3. Misspellings:
+   Keep the misspelled word exactly as written AND immediately follow it with the correct spelling inside square brackets.
+   
+   The model must treat any non-standard, incomplete, phonetic, or obviously incorrect spelling as a misspelling unless it is a known historic spelling variant.
+
+   If the correct spelling is reasonably inferable, the correction MUST be provided even if some uncertainty exists.
+
+   Examples:
+   sorre [sorry]
+   secrit [secret]
+   ther [there]
+   agayn [again]
+
+4. Archaic pronouns:
+   When an archaic pronoun appears, preserve the original word AND add the modern equivalent in square brackets. Use the following required mappings:
+
+   thou → thou [you]
+   thee → thee [you]
+   ye (pronoun) → ye [you]
+   thy → thy [your]
+   thine → thine [yours]
+   hath → hath [has]
+   doth → doth [does]
+
+   (Add more if needed.)
+
+   NOTE:
+   If "ye" is being used as a scribal abbreviation for "the," treat it under Rule 5 instead.
+
+5. Scribal abbreviations:
+   Retain the abbreviation AND immediately follow it with the expanded word in square brackets.
+   Format: abbreviation [expansion]
+
+   Examples:
+   yt [that]
+   wch [which]
+   ye [the]
+
+   If the expansion is uncertain, KEEP the abbreviation EXACTLY as written and DO NOT add brackets.
+
+6. Words written above the line:
+   Surround the word with carats.
+   Format:
+   ^word^
+
+7. Crossed‑out text:
+   Replace the crossed-out content with:
+   [crossed out]
+
+8. Text written vertically or across the page (not horizontally):
+   Transcribe as:
+   [across]
+
+C. EXCLUSION RULES
+9. Ignore bleed-through text, background impressions, ghost text, smudges, or ink blotting.
+
+10. Begin a new line in the transcription whenever the line ends in the image.
+
+11. Do NOT add commentary, explanations, interpretations, or summaries.
+    Output ONLY the transcribed text.
+
