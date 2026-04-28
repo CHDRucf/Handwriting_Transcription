@@ -1,5 +1,5 @@
 # Optimizing LLM Prompts for Late 17th–Early 18th Century English Handwriting Transcription
-susan testing 123
+
 ## Executive Summary
 
 Your current prompt is well-structured and already follows several best practices: it uses a clear rule hierarchy, preserves original text faithfully, annotates rather than modifies, and handles several period-specific conventions (thorn-derived abbreviations, archaic pronouns, superscript text). However, research across academic papers, practitioner tools, and paleographic guides reveals six high-impact areas where the prompt can be materially improved:
