@@ -6,8 +6,14 @@ A historical handwriting transcription pipeline and platform that allows few sho
 ## Stakes: 
 Historians are deeply interested in transcribing a variety of documents into machine-readable text, which facilitates data-driven practices such as distant reading, network analysis, topic modelling and thematic analysis, and the like. Handwritten Text Recognition (HTR) is technically challenging, but handwritten documents contain crucial data for many subfields and periods. Making handwritten historical documents machine-readable also plays a key role in producing history 'from the ground up' by facilitating the inclusion of underesourced voices.
 
+Lucien Li writes "The vast majority of historical documents exist only in manuscript form. Correspondence, personal notes, ledgers, and other unpublished documents provide an enormous source of data that is completely inaccessible to computational text analysis methods. Even for traditional humanists, the lack of keyword search and indexing makes the research process significantly less efficient. Research in these areas requires painstaking and difficult close reading, or the mobilization of huge numbers of volunteer transcribers as in [1]. These barriers prove prohibitive in most cases and limit the scope and scale of potential questions."
+
 ## Challenges
 Kim et. al. 2025: "Historical records are more challenging to transcribe than modern documents due to cursive handwriting styles, the degraded quality of the texts (e.g., faded inks or damaged paper), language changes, and document layouts."
+
+Semnani et. al. describe a variety of challenges: "document degradation caused by environmental factors over time further complicates text extraction (Sulaiman et al., 2019). Historical documents frequently contain features such as marginalia (Cheng et al., 2024), rubrication (Whetter, 2017), and illumination (Wyatt and Tymms, 1861), which are rarely encountered in modern texts. In addition, the wide variety of fonts used in printed documents and the lack of consistent orthographic standards (e.g., multiple spellings of the same word within a single document) pose further challenges (Drobac et al., 2017).
+
+Handwritten text recognition (HTR) (AlKendi et al., 2024) is even more challenging due to the vast diversity of handwriting styles and calligraphic traditions (Blair, 2020), even within the same language. Historical scribes frequently abbreviated words to expedite writing, resulting in thousands of unique abbreviations (Candido and Aluísio, 2009), especially in pre-modern documents (Guéville and Wrisley, 2022; Rogos-Hebda, 2025)."
 
 ## Known Existing Products:
 * Transkribus (https://www.transkribus.org/): model choice, drop images, output transcriptions
@@ -27,10 +33,14 @@ Kim et. al. also use human evaluations of the outputs, scored on a scale of 0 - 
 ### Speed
 
 ### Cost
-Price per image transcribed. Current comparable costs for different models: [insert table]
+Price per image transcribed. Current comparable costs for different models: ![Cost vs similarity benchmark](.\figures\CHURRO_cost_v_quality.png)
 
 ### English vs. Other Languages
 Most LLM training data is written in English. As a result, HTR on English language documents has low overall error rates than HTR on some other languages. Many languages with a relatively small number of native speakers, or from non-Western nations are not well-served by available contemporary LLMs.
+
+Li noticed significantly worse CER using Gemini on non-English texts: "Biases in representation of non English languages in the Gemini training dataset makes it much weaker for non-English languages. For these applications, it is still necessary to use trained neural models."
+
+Crosilla noted that "LLMs perform well in transcribing English handwritten text and modern handwriting, though their accuracy declines progressively in other languages."
 
 ## State of the Field:
 What follows are brief summaries of key findings on pertinent topics in the field.
@@ -40,15 +50,31 @@ Is the field mixed on whether one approach is superior to the other? Note Greif 
 
 Several current papers suggest methods for LLMs to correct OCR transcriptions (Greif et. al. 2025).
 
+Crosilla et. al. note that "for the recognition of the English historical dataset, the results are balanced. While The Text Titan achieves the best outcome with 7,07% CER and 12,41% WER, LLMs are not far behind. ... Moreover, the discrepancy between the models’ performance dealing with English historical and modern texts exhibits a language bias which mirrors the intrinsic one in LLMs caused by most of its training data being in English. Therefore, these models result in being biased not only from a linguistic aspect but also in relation to the characteristics of handwriting (Hodel, 2022, p.169). The accuracy decline is even more pronounced for non-English datasets, where neither Transkribus models nor LLMs consistently outperform one another."
+
+They conclude: "Platforms like Transkribus and general LLMs will likely continue to coexist as tools supporting users’ activities, each being selected based on specific needs. LLMs are quicker, less expensive in terms of material preparation and adaptation, and allow for iterative task adjustments through interaction with the API. However, they still require improvement in the recognition of historical handwritten documents in different languages. On the other hand, Transkribus offers a wide variety of tools, and the shift from highly specialized models to supermodels will likely lead to uniform improved performance on languages other than English. At the moment, for tasks requiring highly tailored solutions, Transkribus’ user interface and specialized models remain advantageous."
+
+Semnani et. al. study Azure's OCR solution, which employs bounding boxes, as well as a hybrid solution which uses a VLM and Azure OCR to help overcome challenges "VLMs face with long inputs."
+
+Levchenko finds from an evaluation of "12 multimodal LLMs ... that Gemini and Qwen models outperform traditional OCR while exhibiting "over-historicization"—inserting archaic characters from incorrect historical periods. Post-OCR correction degrades rather than improves performance."
+
 ### Local, finetuned models vs. general models
 Greif et. al.: "Although TrOCR models with corpus-specific fine-tuning have been shown to yield very accurate results for handwritten texts [20], the limited existing evidence suggests that for Latin script prints, Transkribus’ Text Titan I outperforms a corpus-fine-tuned TrOCR model [72]."
+
+CHURRO (Semnani et al 2025) is a 3B parameter model 'specialized for historical text recognition.' 
+
+Meoded claims that "results demonstrate the effectiveness of domain-specific augmentations and ensemble strategies for advancing historical handwritten text recognition."
 
 ### Zero shot, few shot learning
 Kim et. al. 2025: "two-shot GPT-4o for line-by-line images and two-shot Claude Sonnet 3.5 for whole-scan images yield the transcriptions of the historical records most similar to the ground truth."
 
+### Processing Modes
+Line-based, full page-based, and 'sliding window' based.
+Levchenko describes the full page-based processing as 'the best model for most models'. 
 ### Key Prompt Enginnering Techniques
 
 #### Role Prompting and Context Setting
+Simple prompts, context-enhanced prompts, and context-enhanced prompts in the language of the document (Levchenko).
 
 #### Temperature setting
 Most researchers report settings the temperature to 0.0 to prevent the bastardization of text in transcription.
@@ -57,6 +83,7 @@ Most researchers report settings the temperature to 0.0 to prevent the bastardiz
 Anti-error prompts.
 
 #### Paleographic and Linguistic Contexts
+Levchenko finds 'LLMs consistently "over-historicize" 18th century Russian texts," as well as lacking the ability to insert some period characters as well as difficulty with diacritical marks.
 
 #### Disorganized writing
 
@@ -65,7 +92,15 @@ Anti-error prompts.
 ##### Damaged documents
 ##### Rotation, folding
 
-### Multi-pass, Self-verification, Multiple model verification, 'Council' approaches
+### Challenges of Historical Handwritten Documents
+
+### Post-Correction, Multi-pass, Self-verification, Multiple model verification, 'Council' approaches
+From Crosilla: "Post-OCR or HTR correction can be approached in different ways, from crowdsourcing to the automatic post-correction of previous predictions using LLMs (Bourne, 2025, p.2)."
+
+According to Zykov and Mestetskiy, "LLM postcorrection (exemplified by the ChatGPT-4o service) substantially improves the readability of weak transcriptions and significantly reduces the word error rate (in our experiments, by about –12 percentage points), without degrading the character error rate. Another service tested, DeepSeek-R1, has demonstrated less stable behavior. Practical prompt engineering and limitations (context length limits, risk of “hallucinations”) are discussed, and recommendations are provided for the safe integration of LLM postcorrection into an iterative annotation pipeline to reduce expert annotators’ workload and speed up the digitization of historical archives."
+
+
+### Named Entity Recognition
 
 ## Proposed Stack
 1. Dedicated GPU workstation for local models
@@ -87,7 +122,7 @@ Anti-error prompts.
     1. Document layout and line identification function (with second pass and human correction?)
     2. Image normalization
     3. Word segmentation, character recognition
-    4. Layer Normalization, Beam Search, Focal Loss, 
+    4. Layer Normalization, Beam Search, Focal Loss 
 6.	Certainty heat mapping
 7.	Editing output to gold standard
 8.	Use of gold standard examples in few shot learning
@@ -97,9 +132,32 @@ Anti-error prompts.
 ## Selected Bibliography and Works Cited
 AlKendi W, Gechter F, Heyberger L, Guyeux C. Advancements and Challenges in Handwritten Text Recognition: A Comprehensive Survey. J Imaging. 2024 Jan 8;10(1):18. doi: 10.3390/jimaging10010018. PMID: 38249003; PMCID: PMC10817575.
 
+Crosilla, G., Klic, L., & Colavizza, G. (2025). Benchmarking large language models for handwritten text recognition. Journal of Documentation, 81(7), 334-354.
+
 Greif, G., Griesshaber, N., & Greif, R. (2025). Multimodal LLMs for OCR, OCR post-correction, and named entity recognition in historical documents. arXiv preprint arXiv:2504.00414.
 
 Kim, S., Baudru, J., Ryckbosch, W., Bersini, H., & Ginis, V. (2025). Early evidence of how LLMs outperform traditional systems on OCR/HTR tasks for historical records. arXiv preprint arXiv:2501.11623.
 
+Levchenko, M. A. (2025, September). Evaluating LLMs for historical document OCR: A methodological framework for digital humanities. In Proceedings of the First on Natural Language Processing and Language Models for Digital Humanities (pp. 75-85).
 
+Li, L. (2024). Handwriting recognition in historical documents with multimodal llm. arXiv preprint arXiv:2410.24034.
 
+Meoded, E. (2025). Handwritten text recognition of historical manuscripts using transformer-based models. arXiv preprint arXiv:2508.11499.
+
+Semnani, S., Zhang, H., He, X., Tekgürler, M., & Lam, M. (2025, November). CHURRO: Making History Readable with an Open-Weight Large Vision-Language Model for High-Accuracy, Low-Cost Historical Text Recognition. In Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing (pp. 34765-34812).
+
+Zykov, V. P., & Mestetskiy, L. M. (2025). Postcorrection of Weak Transcriptions by Large Language Models in the Iterative Process of Handwritten Text Recognition. Automatic Documentation and Mathematical Linguistics, 59(Suppl 6), S529-S541.
+
+## Appendices: 
+
+### Prompt Examples
+
+from Crosilla et. al.:
+“You are an AI assistant specialized in transcribing handwritten text from images. Please follow these guidelines: 1. Examine the image carefully and identify all handwritten text. 2. Transcribe ONLY the handwritten text. Ignore any printed or machine-generated text in the image. 3. Maintain the original structure of the handwritten text, including line breaks and paragraphs. 4. Do not attempt to correct spelling or grammar in the handwritten text. Transcribe it exactly as written. 5. Do not describe the image or its contents. 6. Do not introduce or contextualize the transcription. Remember, your goal is to provide an accurate transcription of ONLY the handwritten portions of the text, preserving its original form as much as possible.” 
+
+from Zykov and Mestetskiy:
+"Your task is to correct the input text, correcting errors in it. This is text recognized by a computer vision model from manuscripts. The manuscripts are written in 19th-century Russian (other languages are also sometimes present). The goal is to obtain a transcript that is as close as possible to the manuscript. The model makes errors in character recognition. Correct only the most obvious and understandable places. If a piece of text is difficult to understand, then save it in the same form in which you received it. Keep proper names and numerals as they are. Keep the original sequence of words. You will be presented with lines recognized by the computer vision model, with “→” symbols added at the end. You need to return the corrected line. Examples: 1856. Мартъ → 1856. Мартъ 3-е. Въ часовъ пріѣхалъ въ Канугу. Дядѣ принялъ меня → 3е. Въ 11 часовъ пріѣхалъ въ Калугу. Дядя принялъ меня лучше. Стотрѣли иланхъ моего завода – онъ далъ мнѣ → лучше. Смотрѣли планы моего Завода – онъ далъ мнѣ Отдалъ перепиывать піэссу въ Печать. → Отдалъ переписывать піэссу въ печать. < Other examples …>"
+
+### Process Examples
+
+![Zykov & Mestietskiy Process Model](figures/Zykov_Mestetskiy_Process_Model.png)
