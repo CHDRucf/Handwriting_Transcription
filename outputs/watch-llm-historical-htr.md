@@ -1,8 +1,19 @@
 # Watch: LLMs & OCR for Historical Handwriting Transcription
 
 **Created:** 2026-04-21  
-**Last checked:** 2026-04-21  
+**Last checked:** 2026-06-12  
 **Schedule:** Weekly (every Monday)
+
+---
+
+## Cron Configuration (Feynmann)
+
+This document is maintained by a weekly scheduled Claude Code agent via the `/schedule` skill (`CronCreate`).
+
+**Cron expression:** `0 9 * * 1` (Mondays 09:00 UTC)  
+**Agent prompt:** Search arXiv, Research Square, and major DH journals for new papers matching the scope below. For each new entry: add a row to the appropriate table, update "Last checked", and append to the Update Log. Also flag any preprints that have since been published in a peer-reviewed venue.
+
+---
 
 ## Scope
 
@@ -31,6 +42,8 @@ Peer-reviewed articles in reputable journals **or** high-quality preprints/techn
 | 6 | CHURRO: "Making History Readable with an Open-Weight Large VLM for High-Accuracy, Low-Cost Historical Text Recognition" | arXiv:2509.19768 | Sep 2025 | Preprint (Stanford) | Open-weight VLM specifically fine-tuned for historical text recognition |
 | 7 | Levchenko, "LLMs for Historical Document OCR: A Methodological Framework for Digital Humanities" | arXiv:2510.06743 | Oct 2025 | Preprint | Evaluation methodology for LLM-based historical OCR; 12 models tested; Gemini and Qwen best |
 | 8 | "A Benchmark of State-Space Models vs. Transformers and BiLSTM-based Models for Historical Newspaper OCR" | arXiv:2604.00725 | Apr 2026 | Preprint | SSMs vs Transformers for historical newspaper OCR |
+| 18 | Isom, "An HTR-LLM Workflow for High-Accuracy Transcription and Analysis of Abbreviated Latin Court Hand" | arXiv:2507.04132 | Jul 2025 | Preprint (Lehigh U) | Four-stage pipeline: LLM-curated GT → specialized HTR model → multimodal post-correction → LLM abbreviation expansion → NEC; WER 2–7% on medieval Latin legal docs |
+| 19 | "LLM Benchmarking for HTR on French Historical Death Records" | Research Square rs-9353651/v1 | Apr 2026 | Preprint | GPT-4o best overall on French archival records (complex layout, marginal annotations); Qwen best unrestricted free option; BLEU unreliable proxy for CER on this task |
 
 ### Adjacent — Post-correction, Fine-tuning, Specialized HTR
 
@@ -43,6 +56,8 @@ Peer-reviewed articles in reputable journals **or** high-quality preprints/techn
 | 13 | "Handwritten Text Recognition of Historical Manuscripts Using Transformer-Based Models" | arXiv:2508.11499 | Aug 2025 | Preprint | Transformer-based HTR for historical manuscripts with scarce training data |
 | 14 | "CTC Transcription Alignment of the Bullinger Letters" | arXiv:2508.07904 | Aug 2025 | Preprint (Fribourg) | Improving annotation quality for historical HTR |
 | 15 | Zou & Tekgurl, "Multi-Modal LLMs for Historical Handwritten Text Recognition and Data Augmentation" | Stanford CS231n project | 2025 | Course paper (Stanford) | Gemini 2.0 on Ottoman Turkish manuscripts |
+| 20 | Vesalainen et al., "Error Patterns in Historical OCR: A Comparative Analysis of TrOCR and a Vision-Language Model" | arXiv:2602.14524 | Feb 2026 | Preprint (Helsinki/Aalto) | Qwen achieves lower CER/WER but silently normalizes historical orthography; TrOCR preserves historical forms at cost of higher raw error rate — raises fidelity vs. accuracy trade-off |
+| 21 | Gutteridge et al., "Judge a Book by its Cover: Investigating Multi-Modal LLMs for Multi-Page Handwritten Document Transcription" | arXiv:2502.20295 | Feb 2025 | Preprint (Oxford) | '+first page' method: provide MLLM with full-doc OCR output + only the first page image; outperforms page-by-page and full-image approaches on multi-page docs |
 
 ### Non-peer-reviewed but notable
 
@@ -54,6 +69,14 @@ Peer-reviewed articles in reputable journals **or** high-quality preprints/techn
 ---
 
 ## Update Log
+
+### 2026-06-12 — Manual update (backfill + post-baseline)
+- 4 papers added (2 Core, 2 Adjacent)
+- **#18** (arXiv:2507.04132, Jul 2025): missed in baseline; four-stage HTR-LLM pipeline for medieval Latin with LLM-curated training data — notable for the GT curation approach
+- **#19** (Research Square rs-9353651, Apr 30 2026): genuinely new since baseline; French archival records benchmark; confirms BLEU's unreliability as HTR metric
+- **#20** (arXiv:2602.14524, Feb 2026): missed in baseline; raises important fidelity-vs-accuracy trade-off when VLMs normalize historical spelling
+- **#21** (arXiv:2502.20295, Feb 2025): missed in baseline; '+first page' method is a practical prompt-engineering technique for multi-page docs
+- Cron configuration section added; document wired for Feynmann weekly job
 
 ### 2026-04-21 — Baseline established
 - 15 papers catalogued (4 from prior research in Apr 2025, 11 newly discovered)

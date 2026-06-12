@@ -129,24 +129,9 @@ According to Zykov and Mestetskiy, "LLM postcorrection (exemplified by the ChatG
 9.	Finetuning on a growing corpus
 10.	Batch handling features
 
-## Selected Bibliography and Works Cited
-AlKendi W, Gechter F, Heyberger L, Guyeux C. Advancements and Challenges in Handwritten Text Recognition: A Comprehensive Survey. J Imaging. 2024 Jan 8;10(1):18. doi: 10.3390/jimaging10010018. PMID: 38249003; PMCID: PMC10817575.
+## Bibliography
 
-Crosilla, G., Klic, L., & Colavizza, G. (2025). Benchmarking large language models for handwritten text recognition. Journal of Documentation, 81(7), 334-354.
-
-Greif, G., Griesshaber, N., & Greif, R. (2025). Multimodal LLMs for OCR, OCR post-correction, and named entity recognition in historical documents. arXiv preprint arXiv:2504.00414.
-
-Kim, S., Baudru, J., Ryckbosch, W., Bersini, H., & Ginis, V. (2025). Early evidence of how LLMs outperform traditional systems on OCR/HTR tasks for historical records. arXiv preprint arXiv:2501.11623.
-
-Levchenko, M. A. (2025, September). Evaluating LLMs for historical document OCR: A methodological framework for digital humanities. In Proceedings of the First on Natural Language Processing and Language Models for Digital Humanities (pp. 75-85).
-
-Li, L. (2024). Handwriting recognition in historical documents with multimodal llm. arXiv preprint arXiv:2410.24034.
-
-Meoded, E. (2025). Handwritten text recognition of historical manuscripts using transformer-based models. arXiv preprint arXiv:2508.11499.
-
-Semnani, S., Zhang, H., He, X., Tekgürler, M., & Lam, M. (2025, November). CHURRO: Making History Readable with an Open-Weight Large Vision-Language Model for High-Accuracy, Low-Cost Historical Text Recognition. In Proceedings of the 2025 Conference on Empirical Methods in Natural Language Processing (pp. 34765-34812).
-
-Zykov, V. P., & Mestetskiy, L. M. (2025). Postcorrection of Weak Transcriptions by Large Language Models in the Iterative Process of Handwritten Text Recognition. Automatic Documentation and Mathematical Linguistics, 59(Suppl 6), S529-S541.
+See [bibliography.md](bibliography.md) for the full bibliography.
 
 ## Appendices: 
 
