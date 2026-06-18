@@ -34,3 +34,8 @@ cohere ai aya models
 
 ask Merve about the utility of Churro v. the Few Shot approach to Gemini
 (v. something like olm, escriptorium, transkribus)
+
+In addition to Ground Truth, think about whether the system can add synthetic data (if it is training?)
+
+post-correction works better when CER is below a certain rate (according to video, <10%)
+
