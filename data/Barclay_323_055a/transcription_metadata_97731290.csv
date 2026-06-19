@@ -1,0 +1,2 @@
+transcription id,internal id,reducer,caesar parameters,date approved,user who approved,text edited (T/F),number of pages
+97731290,ARB323_055.a,optics_line_text_reducer,"{""xi""=>0.05, ""max_eps""=>nil, ""angle_eps""=>30, ""gutter_eps""=>300, ""min_samples""=>""auto"", ""minimum_views""=>5, ""min_line_length""=>0, ""low_consensus_threshold""=>3}",2026-03-24 15:24:38 UTC,Lukas_Kaiser,TRUE,1
